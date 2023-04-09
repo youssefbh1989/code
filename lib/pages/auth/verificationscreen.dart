@@ -1,0 +1,297 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:salonat/constants/constants.dart';
+import 'package:salonat/localisation/language/language.dart';
+import 'package:salonat/pages/auth/passwordresetscreen.dart';
+import 'package:salonat/services/api.dart';
+import 'package:sizer/sizer.dart';
+
+import '../../services/user.dart';
+import '../bottom_bar.dart';
+
+class VerificationScreen extends StatefulWidget {
+  const VerificationScreen({Key key, this.profile}) : super(key: key);
+
+  final String profile;
+
+  @override
+  State<VerificationScreen> createState() => _VerificationScreenState();
+}
+
+class _VerificationScreenState extends State<VerificationScreen> {
+  TextEditingController controller1;
+  final _formKey = GlobalKey<FormState>();
+
+  FocusNode focusNode1 = FocusNode();
+
+  final bool _showAcceptError = false;
+
+  final bool _isRequesting = false;
+
+  @override
+  void initState() {
+    super.initState();
+    controller1 = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      extendBodyBehindAppBar: false,
+      backgroundColor: backgroundcolor,
+      appBar: AppBar(
+
+        automaticallyImplyLeading: false,
+        backgroundColor: primaryColor,
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height - 119,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 5.h,
+                ),
+                Image.asset(
+                  'assets/logo- white.png',
+                  width: API.isPhone ? 100.0 : 200.0,
+                  height: API.isPhone ? 100.0 : 200.0,
+                  color: primaryColor,
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  Languages.of(context).Verification,
+                  style: TextStyle(
+                    fontFamily: 'SFProDisplay-Bold',
+                    fontSize: API.isPhone ? 15.0 : 30.0,
+                    color: primaryColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  Languages.of(context).pleaseenter4digitcode,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: API.isPhone ? 15.0 : 30.0,
+                    fontFamily: 'SFProDisplay-Bold',
+                    color: primaryColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    codeTextField(),
+                  ],
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                MaterialButton(
+                    onPressed: _resendpassword,
+                    child: Text(Languages.of(context).resendcode,
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontSize: API.isPhone ? 15.0 : 30.0,
+                        ))),
+                SizedBox(
+                  height: 5.h,
+                ),
+                startButton(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  codeTextField() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width:  API.isPhone ? 100.0 : 200.0,
+          height:    API.isPhone ? 301234.0 : 60.0,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextField(
+            textAlign: TextAlign.center,
+            controller: controller1,
+            keyboardType: TextInputType.number,
+            cursorColor: primaryColor,
+            style: TextStyle(
+                color: primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: API.isPhone ? 15.0 : 30.0),
+            decoration: const InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 11),
+              border: UnderlineInputBorder(borderSide: BorderSide.none),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  startButton() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal:
+      API.isPhone ? 30.0 : 65.0),
+      child: MaterialButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        height: API.isPhone ? 40.0 : 60.0,
+        color: primaryColor,
+        mouseCursor: MouseCursor.defer,
+        textColor: Colors.white,
+        minWidth: double.infinity,
+        onPressed: () {
+          controller1.text.isEmpty
+              ? Get.snackbar(
+                  'Error',
+                  'Enter your verification code',
+                  backgroundColor: backgroundcolor,
+                  snackPosition: SnackPosition.BOTTOM,
+                  colorText: primaryColor,
+                )
+              : _verification();
+        },
+        child: Text(
+          Languages.of(context).Confirm,
+          style: TextStyle(
+              color: whiteColor,
+              fontSize: API.isPhone ? 15.0 : 30.0,
+              fontFamily: 'Calibri',
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _verification() async {
+    setState(() {});
+
+    setState(() {});
+
+    final verification = await UsersWebService().code_verification(code: controller1.text, email: widget.profile);
+
+    waitDialog();
+  }
+
+  Future<void> _resendpassword() async {
+    setState(() {});
+
+    setState(() {});
+
+    final verification =
+        await UsersWebService().resendcode(email: widget.profile);
+
+    Get.snackbar(
+      'Resend Verification Code',
+      'Code Sent',
+      backgroundColor: backgroundcolor,
+      snackPosition: SnackPosition.BOTTOM,
+      colorText: primaryColor,
+    );
+  }
+
+  waitDialog() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (contxet) {
+        return Dialog(
+          insetPadding: EdgeInsets.symmetric(horizontal: 1.h),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          backgroundColor: whiteColor,
+          child: Container(
+            height: 20.h,
+            width: 30.w,
+            decoration: BoxDecoration(
+              color: Colors.white10.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: blackColor.withOpacity(0.1),
+                  spreadRadius: 2,
+                  blurRadius: 2,
+                ),
+              ],
+            ),
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: SpinKitRing(
+                        color: primaryColor,
+                        lineWidth: 5,
+                        size: 50.0,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        Languages.of(context).pleasewait,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: primaryColor,fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    Timer(
+      const Duration(seconds: 3),
+      () {
+        currentIndex = 0;
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    PasswordResetScreen(profile: widget.profile)));
+        Get.snackbar(
+          'Verification',
+          'You Can Now Change Now The Password',
+          backgroundColor: backgroundcolor,
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: primaryColor,
+        );
+        Get.to(() => PasswordResetScreen(
+              profile: widget.profile,
+            ));
+      },
+    );
+  }
+}

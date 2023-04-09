@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "305338509973",
+    "project_id": "salonat-1cfa5",
+    "storage_bucket": "salonat-1cfa5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305338509973:android:b4afa325cef5c5f8bc499c",
+        "android_client_info": {
+          "package_name": "com.smarttech.salon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305338509973-bc721ld9ijun4552h30k5mt0r9aige5t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smarttech.salon",
+            "certificate_hash": "e7d9b78c2e7020220ad2a5f4e0fd27d8cb9bba18"
+          }
+        },
+        {
+          "client_id": "305338509973-ui0o6b9900q1rv63ragbj669n0kfcr2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ9NIsx8x8SjhW6pSeo7lYVPtSnnLlXro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305338509973-pe0enrdk46ru09ke4u6qusjh7dtko5vq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "305338509973-sv0mrdo0r2819e1c1cffkha8momuptkg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.smarttech.salon",
+                "app_store_id": "1636304913"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

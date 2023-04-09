@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34">
+  <g id="Payment_Methods" data-name="Payment Methods" transform="translate(1203 -5396.5)">
+    <circle id="Oval" cx="17" cy="17" r="17" transform="translate(-1203 5396.5)" fill="#ee0cc4"/>
+    <g id="_22_Icons_Filled_Discover" data-name="22) Icons/Filled/Discover" transform="translate(-1198 5401.5)">
+      <path id="Shape" d="M13.6,11.2H2.4A2.4,2.4,0,0,1,0,8.8V2.4A2.4,2.4,0,0,1,2.4,0H13.6A2.4,2.4,0,0,1,16,2.4V8.8A2.4,2.4,0,0,1,13.6,11.2ZM1.6,4.8v4a.8.8,0,0,0,.8.8H13.6a.8.8,0,0,0,.8-.8v-4Zm.8-3.2a.8.8,0,0,0-.8.8v.8H14.4V2.4a.8.8,0,0,0-.8-.8ZM12,8H10.4a.8.8,0,1,1,0-1.6H12A.8.8,0,0,1,12,8ZM7.2,8H4A.8.8,0,0,1,4,6.4H7.2A.8.8,0,0,1,7.2,8Z" transform="translate(4 6)" fill="#fff"/>
+    </g>
+  </g>
+</svg>
